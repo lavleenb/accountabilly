@@ -8,7 +8,7 @@ class Task:
     deadline: (optional) when this task is due.
     time: hours the user needs/wants to complete the task.
     priority: the priority of the task: high priority (1), medium priority (2), low priority (3).
-    status: whether the task is complete (1), in progress (2), or unfinished (3).
+    status: whether the task is complete (2), in progress (1), or unfinished (0). always starts at unfinished (0)
     """
     name: str
     deadline: datetime
@@ -16,7 +16,7 @@ class Task:
     priority: int
     status: int
 
-    def __init__(self, name, deadline, time, priority, status) -> None:
+    def __init__(self, name, deadline, time, priority) -> None:
         '''
         Initializes a new Task.
         '''
@@ -24,10 +24,10 @@ class Task:
         self.deadline = deadline
         self.time = time
         self.priority = priority
-        self.status = status
+        self.status = 0
     
     ### UPDATE METHODS ###
-    ### the following methods update Task attributes except for <name>.
+    ### the following methods allow changes to Task attributes except for <name>.
 
     def updateDeadline(self, new_deadline) -> None:
         self.deadline = new_deadline
@@ -38,8 +38,17 @@ class Task:
     def updatePriority(self, new_priority) -> None:
         self.priority = new_priority
     
-    def updateStatus(self, new_status) -> None:
-        self.status = new_status
+    def taskIPR(self) -> None:
+        '''
+        Changes the status of the task to in progress (1).
+        '''
+        self.status = 1
+    
+    def taskComplete(self) -> None: 
+        '''
+        Changes the status of the task to complete (2).
+        '''
+        self.status = 2
     
     def printTask(self) -> str:
         '''
@@ -49,7 +58,7 @@ class Task:
         d = str(self.deadline)
         t = str(self.time)
         p = {1: "high", 2: "medium", 3: "low"}
-        s = {1: "complete", 2: "in-progress", 3: "incomplete"}
+        s = {2: "complete", 1: "in-progress", 0: "incomplete"}
 
         string = "task: " + n + "\n" + "\ndeadline: " + d + "\ntime needed: " + t + " hour(s)" + "\npriority: " + p[self.priority] + "\nstatus: " + s[self.status] + '\n'
 
@@ -62,9 +71,8 @@ if __name__ == "__main__":
     deadline = datetime.datetime(2023, 5, 17)
     time = 2
     priority = 1
-    status = 3
 
-    newTask = Task(name, deadline, time, priority, status)
+    newTask = Task(name, deadline, time, priority)
     print(newTask.printTask())
 
     new_deadline = datetime.datetime(2023, 5, 19)
