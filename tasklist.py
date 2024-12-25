@@ -34,7 +34,8 @@ class TaskList:
     
     def printTasks(self) -> None: 
         '''
-        Returns a string of all tasks in the list formatted nicely.
+        Returns a list of each task, the number of tasks and the total time needed
+        for this list formatted nicely.
         '''
         ret = ""
         counter = 1
@@ -44,9 +45,10 @@ class TaskList:
             total_time += task.time
             counter +=1
         
-        ret += "\ntotal time for all tasks: " + str(total_time)
+        ret += "\ntotal time for all tasks: " + str(total_time) + " hour(s)" + "\n"
 
-        return ret
+        print(ret)
+
 if __name__ == "__main__":
     ### simple test ### 
 
